@@ -42,62 +42,96 @@ The project will evolve incrementally from a command-line scanner into a more ad
 
 ## Phase 4 — Custom Security Rule Engine
 
-**Status: Planned**
+**Status: Completed**
 
-- [ ] Establish a consistent rule interface.
-- [ ] Separate rule definitions from AST traversal.
-- [ ] Support multiple security rules.
-- [ ] Add rule metadata and severity handling.
-- [ ] Add rule-level positive and negative test cases.
+- [x] Establish a consistent rule interface.
+- [x] Separate rule definitions from AST traversal.
+- [x] Support multiple security rules.
+- [x] Add rule metadata and severity handling.
+- [x] Implement built-in security rules.
+- [x] Add rule-level positive and negative test cases.
+- [x] Implement rule registration and lookup.
+- [x] Support severity-based sorting, filtering, and counting.
 
 ## Phase 5 — Advanced Code Understanding
 
-**Status: Planned**
+**Status: Completed**
 
-- [ ] Symbol analysis.
-- [ ] Variable and scope tracking.
-- [ ] Function and class relationship analysis.
-- [ ] Control Flow Graph (CFG).
-- [ ] Data-flow analysis.
+- [x] Implement hierarchical symbol analysis.
+- [x] Implement variable and scope tracking.
+- [x] Implement function and class relationship analysis.
+- [x] Build Control Flow Graphs (CFG).
+- [x] Implement reaching-definitions data-flow analysis.
+- [x] Implement def-use chains.
+- [x] Add conservative use-before-definition detection.
+- [x] Integrate analysis components through a combined analysis facade.
+- [x] Add CLI support for deep code analysis.
 
 ## Phase 6 — Taint Analysis
 
-**Status: Planned**
+**Status: Completed**
 
-- [ ] Identify potential untrusted input sources.
-- [ ] Track data propagation.
-- [ ] Identify sensitive execution sinks.
-- [ ] Analyze potential source-to-sink paths.
-- [ ] Reduce false positives through improved analysis.
+- [x] Identify supported untrusted input sources.
+- [x] Track tainted data through assignments and expressions.
+- [x] Propagate taint through branches and loops.
+- [x] Integrate taint tracking with control-flow analysis.
+- [x] Identify sensitive code execution sinks.
+- [x] Identify shell command execution sinks.
+- [x] Identify unsafe deserialization sinks.
+- [x] Analyze potential source-to-sink data flows.
+- [x] Implement sink-specific sanitizer handling.
+- [x] Generate structured taint findings with source and sink details.
+- [x] Add automated tests for propagation, sanitization, and sink detection.
+
+**Implemented Taint Detection Rules:**
+
+| Rule ID | Detection | Severity |
+|---|---|---|
+| TAINT-001 | Tainted input reaching `eval()` or `exec()` | WARNING |
+| TAINT-002 | Tainted input reaching `os.system()` or `os.popen()` | HIGH |
+| TAINT-003 | Tainted input reaching subprocess calls with `shell=True` | HIGH |
+| TAINT-004 | Tainted input reaching `pickle.load()` or `pickle.loads()` | HIGH |
+
+**Current Scope and Limitations:**
+
+- Taint analysis is intraprocedural; cross-function propagation is not implemented.
+- Function parameters initially start untainted.
+- Closure-variable taint propagation is not implemented.
+- Sanitizer support is currently limited to recognized `shlex.quote()` and `shlex.join()` calls.
+- Dynamic runtime behavior and unresolved aliases are not fully analyzed.
+- Static-analysis findings require contextual review and do not automatically prove exploitability.
 
 ## Phase 7 — Reporting
 
 **Status: Planned**
 
-- [ ] Structured JSON reports.
-- [ ] Finding aggregation.
-- [ ] Severity-based summaries.
-- [ ] Scan metadata and statistics.
+- [ ] Implement structured JSON reports.
+- [ ] Aggregate findings from security rules and taint analysis.
+- [ ] Generate severity-based summaries.
+- [ ] Include scan metadata and statistics.
+- [ ] Support report serialization and export.
 
 ## Phase 8 — Backend and Scanning Infrastructure
 
 **Status: Planned**
 
-- [ ] Backend/API architecture.
-- [ ] Background scan workers.
-- [ ] Scan job management.
-- [ ] Persistent scan history.
-- [ ] Restricted processing of untrusted projects.
+- [ ] Design backend/API architecture.
+- [ ] Implement background scan workers.
+- [ ] Implement scan job management.
+- [ ] Maintain persistent scan history.
+- [ ] Implement restricted processing of untrusted projects.
+- [ ] Add secure project and scan handling.
 
 ## Phase 9 — Web Dashboard
 
 **Status: Planned**
 
-- [ ] Project submission interface.
-- [ ] Scan progress.
-- [ ] Findings dashboard.
-- [ ] Finding details and recommendations.
-- [ ] Scan history and report downloads.
+- [ ] Build project submission interface.
+- [ ] Display scan progress.
+- [ ] Build findings dashboard.
+- [ ] Display finding details and recommendations.
+- [ ] Implement scan history.
+- [ ] Support report downloads.
 
 ## Development Principles
 
